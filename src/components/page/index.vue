@@ -45,9 +45,9 @@
                             <div class="little-banner">
                                 <img src="../../../static/images/my.png" alt="">
                             </div>
-                            <p class="my-name">sissi</p>
-                            <p class="my-job">Web前端开发工程师</p>
-                            <p class="my-description">一个80后草根女站长！09年入行。一直潜心研究web前端技术，一边工作一边积累经验，分享一些个人博客模板，以及SEO优化等心得。</p>
+                            <p class="my-name">{{myInfo.name}}</p>
+                            <p class="my-job">{{myInfo.job}}</p>
+                            <p class="my-description">{{myInfo.descr}}</p>
                         </div>
                         <div class="individual-label">
                             <h2>
@@ -164,7 +164,12 @@ export default {
                    creatTime:'2018-08-01',
                    num:'10'
                }
-           ]
+           ],
+           myInfo:{
+               name:'sissi',
+               job:'Web前端开发工程师',
+               descr:'一个80后草根女站长！09年入行。一直潜心研究web前端技术，一边工作一边积累经验，分享一些个人博客模板，以及SEO优化等心得。'
+           }
         }
     },
      mounted(){
@@ -227,7 +232,7 @@ export default {
                 .lm a,.readmore a,>a:hover{
                     color:#096;
                 }
-                .lm a:hover,.readmore a:hover,{
+                .lm a:hover,.readmore a:hover{
                     text-decoration: underline;
                 }
                 .dtime {
