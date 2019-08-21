@@ -2,14 +2,15 @@
     <div class="content">
         <div class="banner">
             <template>
-                <el-carousel :interval="5000" :height="height">
+                <el-carousel :interval="5000" :height="height"  indicator-position="none" arrow="never">
                     <el-carousel-item v-for="(item,index) in bannerImg" :key="index">
-                        <img :src="item.imgsrc" :alt="height">
+                        <div class="slider-img"></div>
                     </el-carousel-item>
                 </el-carousel>
             </template>
+            <a class="up" @click="upcont"></a>
         </div>
-        <div class="main-cont">
+        <div class="main-cont" id="content">
             <div class="container">
 
                 <el-col :sm="16" :xl="17">
@@ -48,6 +49,14 @@
                             <p class="my-name">{{myInfo.name}}</p>
                             <p class="my-job">{{myInfo.job}}</p>
                             <p class="my-description">{{myInfo.descr}}</p>
+                        </div>
+
+                        <div class="search">
+                            <h2>搜索</h2>
+                            <form action="" method="post">
+                                <input type="text" placeholder="请输入关键词">
+                                <button type="submit"><img src="../../../static/images/search.png" alt="" srcset=""></button>
+                            </form>
                         </div>
                         <div class="individual-label">
                             <h2>
@@ -98,11 +107,11 @@ export default {
      data() {
         return {
            bannerImg:[
-               {imgsrc:'../../../static/images/banner_01.png'},
-               {imgsrc:'../../../static/images/banner_02.png'},
-               {imgsrc:'../../../static/images/banner_01.png'},
+               {imgsrc:'../../../static/images/header-bg.jpg'},
+               {imgsrc:'../../../static/images/header-bg.jpg'},
+               {imgsrc:'../../../static/images/header-bg.jpg'},
            ],
-           height:"",
+           height:"100vh",
            newsinfo:[
                {
                    url:'#',
@@ -172,24 +181,67 @@ export default {
            }
         }
     },
+    methods: {
+        upcont(){
+            //页面上滑的距离等于下拉箭头到浏览器的距离+自身高度和bottom
+            document.documentElement.scrollTop = document.getElementsByClassName('up')[0].offsetTop+50;
+        }
+    },
      mounted(){
          
-         this.height = document.body.clientWidth * (480/1920) +'px';
-         let that = this;
-         window.onresize = function(){
-            that.height = document.body.clientWidth * (480/1920) +'px';
-         }
-            
+        //  this.height = document.body.clientWidth * (480/1920) +'px';
+        //  let that = this;
+        //  window.onresize = function(){
+        //     that.height = document.body.clientWidth * (480/1920) +'px';
+        //  }
+       
     },
 }
 </script>
 
 <style lang="less" scoped>
+.el-carousel__container{
+    width: 100vh;
+}
         .content{
             overflow: hidden;
+            position: relative;
+            top: -60px;
+            z-index: 0;
         }
-        .banner img{
-                width: 100%;
+        
+        .banner{
+                position: relative;
+                .slider-img{
+                    width: 100%;
+                    height: 100vh;
+                    background: url(../../../static/images/header-bg.jpg) no-repeat center center;
+                }
+                .up{
+                    position: absolute;
+                    bottom: 15px;
+                    z-index: 2;
+                    width: 24px;
+                    height: 24px;
+                    border-bottom: 3px solid #eee;
+                    border-right: 3px solid #eee;
+                    transform: rotateZ(45deg);
+                    left: 50%;
+                    margin-left: -12px;
+                    animation:mymove 2s linear infinite;
+                    -webkit-animation:mymove 2s linear infinite; /*Safari and Chrome*/
+                }
+                @keyframes mymove{
+                   0%,100% {bottom: 15px;}
+                    25%,75% {bottom: 20px;}
+                    50% {bottom: 25px;}
+                }
+
+                @-webkit-keyframes mymove /*Safari and Chrome*/{
+                    0%,100% {bottom: 15px;}
+                    25%,75% {bottom: 20px;}
+                    50% {bottom: 25px;}
+                }
         }
         .main-cont{
             margin-top: 20px;
@@ -384,5 +436,33 @@ export default {
             span:last-child {
                 background: #3299BB;
             }
+               
         } 
+            .search form{
+                text-align: center;
+            }
+            .search input,
+            .search button {
+                padding-left: 10px;
+                width: 65px;
+                height: 35px;
+                line-height: 35px;
+                border: none;
+                color: #959595;
+            }
+            .search input {
+                width: 60%;
+                background-color: #eee;
+                margin: 20px 0;
+            }
+            .search button {
+                width: 40px;
+                text-align: center;
+                background-color: #eee;
+                margin-left: -5px;
+                border-left: 1px solid #fff
+            }
+            .search button img {
+                margin: -2px 0 0 -2px;
+            }
 </style>

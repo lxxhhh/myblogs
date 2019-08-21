@@ -27,6 +27,7 @@ export default {
   background-color: rgb(247, 247, 247);
   overflow: hidden;
 }
+
 .container{
         max-width: 1200px;
         margin: 0 auto;
