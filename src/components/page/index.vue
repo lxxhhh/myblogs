@@ -3,12 +3,13 @@
         <div class="banner">
             <template>
                 <el-carousel :interval="5000" :height="height"  indicator-position="none" arrow="never">
-                    <el-carousel-item v-for="(item,index) in bannerImg" :key="index">
+                    <el-carousel-item>
                         <div class="slider-img"></div>
                     </el-carousel-item>
                 </el-carousel>
             </template>
             <a class="up" @click="upcont"></a>
+            <canvas id="c"></canvas>
         </div>
         <div class="main-cont" id="content">
             <div class="container">
@@ -103,13 +104,14 @@
 </template>
 
 <script>
+
+import {upBubbel} from '../../../static/js/bubbel'
+
 export default {
      data() {
         return {
            bannerImg:[
-               {imgsrc:'../../../static/images/header-bg.jpg'},
-               {imgsrc:'../../../static/images/header-bg.jpg'},
-               {imgsrc:'../../../static/images/header-bg.jpg'},
+               {imgsrc:'../../../static/images/header-bg.jpg'}
            ],
            height:"100vh",
            newsinfo:[
@@ -184,11 +186,13 @@ export default {
     methods: {
         upcont(){
             //页面上滑的距离等于下拉箭头到浏览器的距离+自身高度和bottom
-            document.documentElement.scrollTop = document.getElementsByClassName('up')[0].offsetTop+50;
+            document.documentElement.scrollTop = document.getElementsByClassName('up')[0].offsetTop;
         }
-    },
-     mounted(){
-         
+    }, 
+    mounted(){
+        //向上的泡泡
+        upBubbel();
+        //设置element轮播图高度自适应
         //  this.height = document.body.clientWidth * (480/1920) +'px';
         //  let that = this;
         //  window.onresize = function(){
@@ -200,13 +204,19 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-carousel__container{
-    width: 100vh;
-}
+        #c {
+            display: block;
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
         .content{
             overflow: hidden;
             position: relative;
-            top: -60px;
+            top: 0px;
             z-index: 0;
         }
         
@@ -216,11 +226,12 @@ export default {
                     width: 100%;
                     height: 100vh;
                     background: url(../../../static/images/header-bg.jpg) no-repeat center center;
+                    background-size: cover;
                 }
                 .up{
                     position: absolute;
                     bottom: 15px;
-                    z-index: 2;
+                    z-index: 3;
                     width: 24px;
                     height: 24px;
                     border-bottom: 3px solid #eee;

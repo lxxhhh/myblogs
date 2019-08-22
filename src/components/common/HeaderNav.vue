@@ -1,6 +1,6 @@
 <template>
 <div class="header">
-    <header>
+    <header :class="headerClass">
         <div class="container">
             <div class="logo">
                 sissi
@@ -18,6 +18,7 @@
     
 </template>
 <script>
+
 export default {
    data() {
        return {
@@ -28,7 +29,8 @@ export default {
                {name:'生活随记',url:'/list'},
                {name:'其他',url:'/list'},
            ],
-           flag:0
+           flag:0,
+           headerClass:'',
        }
    },
    methods: {
@@ -36,18 +38,32 @@ export default {
            this.flag = index;
        }
    },
+   mounted() {
+       let that = this;
+       //如果页面滑动了一个窗口的高度，则导航栏的背景色变为#fff（添加class类'white'）
+       window.onscroll = function(){
+           that.headerClass = document.documentElement.scrollTop >= document.getElementsByClassName('up')[0].offsetTop ? 'white':'' 
+       }
+   },
 }
 </script>
 
 <style lang="less" scoped>
     @maincolor: rgba(255,255,255,0.7);;
-    
+    .header{
+        position: fixed;
+        z-index: 1;
+        width: 100%;
+        .white{
+            background-color: #fff;
+        }
+    }
     header{
         height: 60px;
         color: #333;
         position: relative;
         z-index: 1;
-        box-shadow: 0 30px 65px #fff inset;
+        box-shadow: 0 30px 40px #fff inset;
         // margin-bottom: 5px;
         .logo{
             float: left;

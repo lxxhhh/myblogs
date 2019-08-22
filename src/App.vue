@@ -10,7 +10,6 @@
 import HraderNav from '@/components/common/HeaderNav'
 import Footer from '@/components/common/Footer'
 
-
 export default {
   name: 'App',
   components:{

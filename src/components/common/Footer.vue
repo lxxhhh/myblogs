@@ -1,5 +1,6 @@
 <template>
     <div class="footer">
+        <a href="https://github.com/lxxhhh"><img src="../../../static/images/github-icon.png" alt=""></a>
         <span>版权所有Copyright &copy; sissi个人博客</span>
     </div>
 </template>
@@ -18,5 +19,12 @@ export default {
         text-align: center;
         padding: 20px 0;
         margin-top: 20px;
+        a{
+            display: block;
+        }
+        img{
+            width: 25px;
+            margin-bottom: 5px;
+        }
     }
 </style>
