@@ -25,7 +25,7 @@ export default {
            menu:[
                {name:'首页',url:'/'},
                {name:'学习笔记',url:'/list'},
-               {name:'资源共享',url:'/list'},
+               {name:'资源共享',url:'/content'},
                {name:'生活随记',url:'/list'},
                {name:'其他',url:'/list'},
            ],
@@ -39,11 +39,11 @@ export default {
        }
    },
    mounted() {
-       let that = this;
+      // let that = this;
        //如果页面滑动了一个窗口的高度，则导航栏的背景色变为#fff（添加class类'white'）
-       window.onscroll = function(){
-           that.headerClass = document.documentElement.scrollTop >= document.getElementsByClassName('up')[0].offsetTop ? 'white':'' 
-       }
+       //window.onscroll = function(){
+         //  that.headerClass = document.documentElement.scrollTop >= document.getElementsByClassName('up')[0].offsetTop ? 'white':'' 
+     //  }
    },
 }
 </script>
@@ -59,17 +59,17 @@ export default {
         }
     }
     header{
-        height: 60px;
-        color: #333;
+        height: 40px;
+        color: #fff;
         position: relative;
         z-index: 1;
-        box-shadow: 0 30px 40px #fff inset;
+        box-shadow: 0 30px 40px #bbb inset;
         // margin-bottom: 5px;
         .logo{
             float: left;
-            font-size: 30px;
+            font-size: 26px;
             font-weight: 600;
-            line-height: 60px;
+            line-height: 40px;
         }
        
     }
@@ -81,14 +81,13 @@ export default {
             padding: 0 15px;
         }
         a{
-            color: #555;
-            line-height: 60px;
-            font-size: 18px;
+            color: #fff;
+            line-height: 40px;
+            font-size: 16px;
             padding: 8px 0;
         }
         .selected{
-            border-bottom: 2px solid #333;
-            color: #333;
+            border-bottom: 2px solid #bbb;
         }
     }
    

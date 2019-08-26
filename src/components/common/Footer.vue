@@ -1,5 +1,5 @@
 <template>
-    <div class="footer">
+    <div class="footer clearfix">
         <a href="https://github.com/lxxhhh"><img src="../../../static/images/github-icon.png" alt=""></a>
         <span>版权所有Copyright &copy; sissi个人博客</span>
     </div>
@@ -13,6 +13,7 @@ export default {
 
 <style lang="less" scoped>
     .footer{
+        clear: both;
         width: 100%;
         background: #333;
         color: #a5a4a4;

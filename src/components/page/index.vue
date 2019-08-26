@@ -37,6 +37,25 @@
                                     </div>
                                 </li>
                             
+                                <li v-for="news in infoUrl">
+                                    <a :href="news.link" class="cont-pic fl">
+                                        <img :src="news.picInfo[0]" alt="">
+                                    </a>
+                                    <a :href="news.link" class="cont-info">
+                                        <h4 class="cont-tit">{{news.title}}</h4> 
+                                        <p class="cont-con">{{news.digest}}</p>
+                                    </a>
+                                    <div class="autor">
+                                        <span class="lm">
+                                            <a :href="news.link" :title="news.category" target="_blank" class="classname">{{news.category}}</a>   
+                                        </span>
+                                        <span class="dtime">{{news.ptime}}</span>
+                                        <span class="viewnum">浏览（{{news.tcount}}）</span>
+                                        <span class="readmore fr">
+                                            <a :href="news.link">阅读原文</a>
+                                        </span>
+                                    </div>
+                                </li>
                               
                             </ul>
                     </div>
@@ -106,7 +125,7 @@
 <script>
 
 import {upBubbel} from '../../../static/js/bubbel'
-
+import axios from "axios"
 export default {
      data() {
         return {
@@ -124,58 +143,9 @@ export default {
                    typeUrl:'/',
                    creatTime:'2018-08-01',
                    num:'10'
-               },
-               {
-                   url:'#',
-                   imgsrc:'../../../static/images/pic01.jpg',
-                   title:'关于响应式Web设计技巧以及入门',
-                   content:'html5和css3流行至今，我在做响应式的网站一直是在“尝试”的阶段。并没有深入的去研究和学习，浅显的理解就是根据屏幕分辨率的大小，网站布局、图片、文字大小等...',
-                   type:'HTML5+CSS3',
-                   typeUrl:'/',
-                   creatTime:'2018-08-01',
-                   num:'10'
-               },
-               {
-                   url:'#',
-                   imgsrc:'../../../static/images/pic01.jpg',
-                   title:'关于响应式Web设计技巧以及入门',
-                   content:'html5和css3流行至今，我在做响应式的网站一直是在“尝试”的阶段。并没有深入的去研究和学习，浅显的理解就是根据屏幕分辨率的大小，网站布局、图片、文字大小等...',
-                   type:'HTML5+CSS3',
-                   typeUrl:'/',
-                   creatTime:'2018-08-01',
-                   num:'10'
-               },
-               {
-                   url:'#',
-                   imgsrc:'../../../static/images/pic01.jpg',
-                   title:'关于响应式Web设计技巧以及入门',
-                   content:'html5和css3流行至今，我在做响应式的网站一直是在“尝试”的阶段。并没有深入的去研究和学习，浅显的理解就是根据屏幕分辨率的大小，网站布局、图片、文字大小等...',
-                   type:'HTML5+CSS3',
-                   typeUrl:'/',
-                   creatTime:'2018-08-01',
-                   num:'10'
-               },
-               {
-                   url:'#',
-                   imgsrc:'../../../static/images/pic01.jpg',
-                   title:'关于响应式Web设计技巧以及入门',
-                   content:'html5和css3流行至今，我在做响应式的网站一直是在“尝试”的阶段。并没有深入的去研究和学习，浅显的理解就是根据屏幕分辨率的大小，网站布局、图片、文字大小等...',
-                   type:'HTML5+CSS3',
-                   typeUrl:'/',
-                   creatTime:'2018-08-01',
-                   num:'10'
-               },
-               {
-                   url:'#',
-                   imgsrc:'../../../static/images/pic01.jpg',
-                   title:'关于响应式Web设计技巧以及入门',
-                   content:'html5和css3流行至今，我在做响应式的网站一直是在“尝试”的阶段。并没有深入的去研究和学习，浅显的理解就是根据屏幕分辨率的大小，网站布局、图片、文字大小等...',
-                   type:'HTML5+CSS3',
-                   typeUrl:'/',
-                   creatTime:'2018-08-01',
-                   num:'10'
                }
            ],
+           infoUrl:[],
            myInfo:{
                name:'sissi',
                job:'Web前端开发工程师',
@@ -186,9 +156,20 @@ export default {
     methods: {
         upcont(){
             //页面上滑的距离等于下拉箭头到浏览器的距离+自身高度和bottom
-            document.documentElement.scrollTop = document.getElementsByClassName('up')[0].offsetTop;
+            document.documentElement.scrollTop = document.getElementsByClassName('up')[0].offsetTop+50;
         }
     }, 
+    created() {
+        axios.get('https://www.apiopen.top/journalismApi')
+        .then(response => {
+            this.infoUrl = response.data.data.toutiao;
+            console.log(this.infoUrl);
+
+        }).catch(error => {
+           console.log(error);
+            alert('网络错误，不能访问');
+        })
+    },
     mounted(){
         //向上的泡泡
         upBubbel();
@@ -265,6 +246,7 @@ export default {
                     display: block;
                     margin-right:20px;
                     width: 30%;
+                    font-size: 0;
                 }
                 img{
                     width: 100%;
