@@ -1,15 +1,14 @@
 <template>
-    <div class="content">
-        <div class="banner">
-            <img src="../../../static/images/header-bg.jpg" alt="">
-        </div>
-        
-    </div>
+    <div class="box">
+  
+  </div>
 </template>
 
 <script>
+
+
 export default {
-    
+ 
 }
 </script>
 

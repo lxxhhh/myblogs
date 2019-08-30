@@ -345,10 +345,11 @@ export default {
             }
             h2{
                 position: relative;
-                font-size: 18ox;
+                font-size: 18px;
                 line-height: 50px;
                 border-bottom: 1px solid #e5e5e5;
                 padding-left: 10px;
+                color: #333;
             }
             h2:after{
                 content:'';

@@ -25,9 +25,9 @@ export default {
            menu:[
                {name:'首页',url:'/'},
                {name:'学习笔记',url:'/list'},
-               {name:'资源共享',url:'/content'},
+               {name:'资源共享',url:'/list'},
                {name:'生活随记',url:'/list'},
-               {name:'其他',url:'/list'},
+               {name:'其他',url:'/content'},
            ],
            flag:0,
            headerClass:'',
