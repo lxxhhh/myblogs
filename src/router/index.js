@@ -14,7 +14,7 @@ export default new Router({
       component: index
     },
     {
-      path: '/list',
+      path: '/list/:newstype',
       name: 'list',
       component: list
     },,

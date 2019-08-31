@@ -163,7 +163,7 @@ export default {
         axios.get('https://www.apiopen.top/journalismApi')
         .then(response => {
             this.infoUrl = response.data.data.toutiao;
-            console.log(this.infoUrl);
+            // console.log(this.infoUrl);
 
         }).catch(error => {
            console.log(error);

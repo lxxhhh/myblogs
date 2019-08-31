@@ -8,58 +8,41 @@
             <div class="container">
                 <div class="main-con-pos clearfix">
                     <div class="current-col fl hidden-xs-only">
-                        HTML+CSS
+                        {{type}}
                     </div>
                     <div class="current-pos fr">
                         <img src="../../../static/images/home.png" alt="">当前位置 : <a href="/">首页</a> > HTML+CSS
                     </div>
                 </div>
 
-              
-                    
+              <transition name="fade">
                     <div class="list-new-pbl">
-                            <ul>
-                                <!-- <li v-for="news in newsinfo" class="fl new-item">
-                                    <a :href="news.url" class="cont-pic fl">
-                                        <img :src="news.imgsrc" alt="">
-                                    </a>
-                                    <a :href="news.url" class="cont-info">
-                                        <h4 class="cont-tit">{{news.title}}</h4> 
-                                        <p href="" class="cont-con">{{news.content}}</p>
-                                    </a>
-                                    <div class="autor">
-                                        <span class="lm">
-                                            <a :href="news.typeUrl" :title="news.type" target="_blank" class="classname">{{news.type}}</a>   
-                                        </span>
-                                        <span class="dtime">{{news.creatTime}}</span>
-                                        <span class="viewnum">浏览（{{news.num}}）</span>
-                                        <span class="readmore fr">
-                                            <a href="#">阅读原文</a>
-                                        </span>
-                                    </div>
-                                </li> -->
-                                <li v-for="news in infoUrl" class="fl new-item">
-                                    <div class="cont-pic fl">
-                                        <img src="../../../static/images/pic01.jpg" alt="">
-                                    </div>
-                                    <a :href="news.link" class="cont-info" target="_blank">
-                                        <h4 class="cont-tit">{{news.title}}</h4> 
-                                        <p class="cont-con">{{news.digest}}</p>
-                                    </a>
-                                    <div class="autor">
-                                        <span class="lm">
-                                            <a :href="news.link" :title="news.category" target="_blank" class="classname">{{news.category}}</a>   
-                                        </span>
-                                        <span class="dtime">{{news.ptime}}</span>
-                                        <span class="viewnum">浏览（{{news.tcount}}）</span>
-                                        <span class="readmore fr">
-                                            <a :href="news.link">阅读原文</a>
-                                        </span>
-                                    </div>
-                                </li>
-                              
-                            </ul>
+                        <ul id="pbl-he">
+                            <li v-for="news in infoUrl" class="fl new-item">
+                                <div class="cont-pic fl">
+                                    <img src="../../../static/images/pic01.jpg" alt="">
+                                </div>
+                                <a :href="news.link" class="cont-info" target="_blank">
+                                    <h4 class="cont-tit">{{news.title}}</h4> 
+                                    <p class="cont-con">{{news.digest}}</p>
+                                </a>
+                                <div class="autor">
+                                    <span class="lm">
+                                        <a :href="news.link" :title="news.category" target="_blank" class="classname">{{news.category}}</a>   
+                                    </span>
+                                    <span class="dtime">{{news.ptime}}</span>
+                                    <span class="viewnum">浏览（{{news.tcount}}）</span>
+                                    <span class="readmore fr">
+                                        <a :href="news.link">阅读原文</a>
+                                    </span>
+                                </div>
+                            </li>
+                        
+                        </ul>
                     </div>
+              </transition>
+                    
+                    
             </div>
         </div>
     </div>
@@ -72,36 +55,10 @@ import axios from "axios"
 export default {
     data(){
         return{
-            newsinfo:[
-               {
-                   url:'#',
-                   imgsrc:'../../../static/images/pic01.jpg',
-                   title:'关于响应式Web设计技巧以及入门',
-                   content:'html5和css3流行至今，我在做响应式的网站一直是在“尝试”的阶段。并没有深入的去研究和学习，浅显的理解就是根据屏幕分辨率的大小，网站布局、图片、文字大小等...',
-                   type:'HTML5+CSS3',
-                   typeUrl:'/',
-                   creatTime:'2018-08-01',
-                   num:'10'
-               }
-           ],
+            type:'HTML+CSS',
             infoUrl:[], 
-            waterfallItemWidth:100,
-            waterfallItemCol:5,
-            waterfallItemRight:10,
-            waterfallItemBottom:10,
-            waterfallDeviationHeight:[],
+            newsType:''
         }
-    },
-    created() {
-        axios.get('https://www.apiopen.top/journalismApi')
-        .then(response => {
-            this.infoUrl = response.data.data.toutiao;
-            // console.log(this.infoUrl);
-
-        }).catch(error => {
-           console.log(error);
-            alert('网络错误，不能访问');
-        })
     },
     watch: {
         infoUrl:function(){
@@ -109,15 +66,45 @@ export default {
             that.$nextTick(function(){  //监听数据加载完成
                 that.waterFall();
             });
+        },
+        '$route': function() {  //监听$route参数  Vue多个路由共用同一组件时，mounted等生命周期是不起作用的，所以互相切换时检测$route参数变化来更新组件信息
+             this.newsType = this.$route.params.newstype;
+             this.getInfo();
+             console.log(this.newsType);
         }
     },
+    computed: {
+        // newsType:function(){
+        //     return this.$route.params.newstype;
+             
+        // }
+        
+    },
     mounted() {
+        this.newsType = this.$route.params.newstype;
+        console.log(this.newsType);
+        //获取信息
+        this.getInfo();
+       
         let _this =this;
         window.onresize = function(){
                 _this.waterFall();
              }
+              
+        
     },
     methods: {
+        getInfo(){
+             axios.get('https://www.apiopen.top/'+this.newsType+'')
+            .then(response => {
+                this.infoUrl = response.data.data.toutiao;
+
+            }).catch(error => {
+            console.log(error);
+                alert('网络错误，不能访问');
+            });
+
+        },
         waterFall(){
                 //瀑布流效果
                 //这里有一个坑（已经修复）：
@@ -131,44 +118,49 @@ export default {
                 let columns = 3;
                 //得到li的宽度  减10是为了预留出来充当margin-left和margin-right
                 let itemWidth = (parseInt(pageWidth/columns)-10); 
+
                 //获取li元素
                 let items = document.getElementsByClassName('new-item');
-
                 let arr = [];
                 for (let i = 0; i < items.length; i++) {
+                    //给每一个li元素加宽
                     items[i].style.width = itemWidth + 'px';
-                    //浮动的元素的高度  加10是为了充当margin-bottom
-                    let boxheight = items[i].clientHeight+10;
 
+                    //获取浮动的元素的高度  加10是为了充当margin-bottom
+                    let boxheight = items[i].clientHeight + 10;
+                    
+                    //第一行的元素，top值为0，
                     if(i < columns){
                         items[i].style.top = 0;
                         items[i].style.left = (itemWidth+10)*i + 'px';
                         arr.push(boxheight);
+                        // console.log(boxheight);
                     }
                     else{
                         let minHeight = arr[0];
                         let n = 0;
-                        arr.forEach(function(index,item){
-                            if (minHeight > item) {
+                        arr.forEach((item,index) => {
+                            if (minHeight >= item) {
                                 minHeight = item;
                                 n = index;
                             }
+                           
                         });
-                        for (let j = 0; j < arr.length; j++) {
-                            if (minHeight > arr[j]) {
-                                minHeight = arr[j];
-                                index = j;
-                            }
-                        }
-                        items[i].style.top = arr[index] + 'px';
-                        items[i].style.left = items[index].style.left;
+                        // console.log(minHeight,arr[n]);
+                        //下一个的top值等于之前的元素里高度最小的
+                        items[i].style.top = minHeight + 'px';
+                        items[i].style.left = items[n].style.left;
 
                          // 5- 修改最小列的高度 
                         // 最小列的高度变为 ： 当前自己的高度 + 拼接过来的高度
-                        arr[index] = boxheight + arr[index];
+                        arr[n] = boxheight + arr[n];
                     }
                 }
-
+                let maxHeight = arr[0];
+                arr.forEach((item,index) => {
+                        maxHeight = maxHeight < item ? item : maxHeight;
+                });
+                document.getElementById('pbl-he').style.height = maxHeight + 50 + 'px';
         }
         
     },
@@ -202,16 +194,20 @@ export default {
             margin: -3px 2px 0 0;
         }
     }
-
+    
+    // .fade-enter-active, .fade-leave-active {
+    //   transition: opacity 5s;
+    // }
+    // .fade-enter, .fade-leave-to  {
+    //   opacity: 0;
+    // } 
     .main-list{
             margin-top: -40px;
             position: relative;
             .list-new-pbl{
                 position: relative;
             }
-            ul{
-                height:1200px;
-            }
+           
             li {
                 box-sizing: border-box;
                 position: absolute;

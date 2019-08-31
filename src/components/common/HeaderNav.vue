@@ -24,10 +24,10 @@ export default {
        return {
            menu:[
                {name:'首页',url:'/'},
-               {name:'学习笔记',url:'/list'},
-               {name:'资源共享',url:'/list'},
-               {name:'生活随记',url:'/list'},
-               {name:'其他',url:'/content'},
+               {name:'学习笔记',url:'/list/journalismApi'},
+               {name:'资源共享',url:'/list/journalismApi01'},
+               {name:'生活随记',url:'/list/journalismApi02'},
+               {name:'其他',url:'/list/journalismApi03'},
            ],
            flag:0,
            headerClass:'',
@@ -37,13 +37,6 @@ export default {
        selected(index){
            this.flag = index;
        }
-   },
-   mounted() {
-      // let that = this;
-       //如果页面滑动了一个窗口的高度，则导航栏的背景色变为#fff（添加class类'white'）
-       //window.onscroll = function(){
-         //  that.headerClass = document.documentElement.scrollTop >= document.getElementsByClassName('up')[0].offsetTop ? 'white':'' 
-     //  }
    },
 }
 </script>
@@ -78,7 +71,7 @@ export default {
         overflow: hidden;
         li{
             float: left;
-            padding: 0 15px;
+            margin: 0 15px;
         }
         a{
             color: #fff;

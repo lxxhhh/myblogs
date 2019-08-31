@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <HraderNav></HraderNav>
-    <router-view/>
+      <router-view/>
     <Footer></Footer>
   </div>
 </template>
@@ -30,4 +30,5 @@ export default {
         max-width: 1200px;
         margin: 0 auto;
     }
+
 </style>
