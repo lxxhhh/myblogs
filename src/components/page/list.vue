@@ -14,33 +14,30 @@
                         <img src="../../../static/images/home.png" alt="">当前位置 : <a href="/">首页</a> > HTML+CSS
                     </div>
                 </div>
-
-              <transition name="fade">
-                    <div class="list-new-pbl">
-                        <ul id="pbl-he">
-                            <li v-for="news in infoUrl" class="fl new-item">
-                                <div class="cont-pic fl">
-                                    <img src="../../../static/images/pic01.jpg" alt="">
-                                </div>
-                                <a :href="news.link" class="cont-info" target="_blank">
-                                    <h4 class="cont-tit">{{news.title}}</h4> 
-                                    <p class="cont-con">{{news.digest}}</p>
-                                </a>
-                                <div class="autor">
-                                    <span class="lm">
-                                        <a :href="news.link" :title="news.category" target="_blank" class="classname">{{news.category}}</a>   
-                                    </span>
-                                    <span class="dtime">{{news.ptime}}</span>
-                                    <span class="viewnum">浏览（{{news.tcount}}）</span>
-                                    <span class="readmore fr">
-                                        <a :href="news.link">阅读原文</a>
-                                    </span>
-                                </div>
-                            </li>
-                        
-                        </ul>
-                    </div>
-              </transition>
+                <div class="list-new-pbl">
+                    <ul id="pbl-he">
+                        <li v-for="news in infoUrl" class="fl new-item">
+                            <div class="cont-pic fl">
+                                <img src="../../../static/images/pic01.jpg" alt="">
+                            </div>
+                            <a :href="news.link" class="cont-info" target="_blank">
+                                <h4 class="cont-tit">{{news.title}}</h4> 
+                                <p class="cont-con">{{news.digest}}</p>
+                            </a>
+                            <div class="autor">
+                                <span class="lm">
+                                    <a :href="news.link" :title="news.category" target="_blank" class="classname">{{news.category}}</a>   
+                                </span>
+                                <span class="dtime">{{news.ptime}}</span>
+                                <span class="viewnum">浏览（{{news.tcount}}）</span>
+                                <span class="readmore fr">
+                                    <a :href="news.link">阅读原文</a>
+                                </span>
+                            </div>
+                        </li>
+                    
+                    </ul>
+                </div>
                     
                     
             </div>
@@ -64,6 +61,7 @@ export default {
         infoUrl:function(){
             let that = this;
             that.$nextTick(function(){  //监听数据加载完成
+        console.log(this.newsType);
                 that.waterFall();
             });
         },
@@ -73,16 +71,8 @@ export default {
              console.log(this.newsType);
         }
     },
-    computed: {
-        // newsType:function(){
-        //     return this.$route.params.newstype;
-             
-        // }
-        
-    },
     mounted() {
         this.newsType = this.$route.params.newstype;
-        console.log(this.newsType);
         //获取信息
         this.getInfo();
        
@@ -195,13 +185,9 @@ export default {
         }
     }
     
-    // .fade-enter-active, .fade-leave-active {
-    //   transition: opacity 5s;
-    // }
-    // .fade-enter, .fade-leave-to  {
-    //   opacity: 0;
-    // } 
+  
     .main-list{
+            min-height: 500px;
             margin-top: -40px;
             position: relative;
             .list-new-pbl{

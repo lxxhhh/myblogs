@@ -19,7 +19,7 @@ export default new Router({
       component: list
     },,
     {
-      path: '/content',
+      path: '/content/:newstype',
       name: 'content',
       component: content
     },

@@ -27,7 +27,7 @@ export default {
                {name:'学习笔记',url:'/list/journalismApi'},
                {name:'资源共享',url:'/list/journalismApi01'},
                {name:'生活随记',url:'/list/journalismApi02'},
-               {name:'其他',url:'/list/journalismApi03'},
+               {name:'其他',url:'/content/journalismApi03'},
            ],
            flag:0,
            headerClass:'',
