@@ -18,7 +18,7 @@
                     <ul id="pbl-he">
                         <li v-for="news in infoUrl" class="fl new-item">
                             <div class="cont-pic fl">
-                                <img src="../../../static/images/pic01.jpg" alt="">
+                                <img src="" alt="">
                             </div>
                             <a :href="news.link" class="cont-info" target="_blank">
                                 <h4 class="cont-tit">{{news.title}}</h4> 
@@ -59,10 +59,9 @@ export default {
     },
     watch: {
         infoUrl:function(){
-            let that = this;
-            that.$nextTick(function(){  //监听数据加载完成
-        console.log(this.newsType);
-                that.waterFall();
+            this.$nextTick(function(){  //监听数据加载完成
+                // console.log(this.newsType);
+               this.waterFall();
             });
         },
         '$route': function() {  //监听$route参数  Vue多个路由共用同一组件时，mounted等生命周期是不起作用的，所以互相切换时检测$route参数变化来更新组件信息
