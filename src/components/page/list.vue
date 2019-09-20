@@ -18,7 +18,7 @@
                     <ul id="pbl-he">
                         <li v-for="news in infoUrl" class="fl new-item">
                             <div class="cont-pic fl">
-                                <img src="" alt="">
+                                <img src="#" alt="">
                             </div>
                             <a :href="news.link" class="cont-info" target="_blank">
                                 <h4 class="cont-tit">{{news.title}}</h4> 
@@ -84,7 +84,7 @@ export default {
     },
     methods: {
         getInfo(){
-             axios.get('https://www.apiopen.top/'+this.newsType+'')
+             axios.get(`https://www.apiopen.top/${this.newsType}`)
             .then(response => {
                 this.infoUrl = response.data.data.toutiao;
 
@@ -103,7 +103,7 @@ export default {
                 //                   设置瀑布流中每个item的top值（为每一行中最小的item高度，数组查找）
                 //item的left值：第一行：按照每块item的宽度值*块数
                 //             其他行：与自身上面一块的left值相等
-                let pageWidth = document.getElementsByClassName('container')[0].offsetWidth;
+                let pageWidth = document.getElementsByClassName('container')[1].offsetWidth;
                 let columns = 3;
                 //得到li的宽度  减10是为了预留出来充当margin-left和margin-right
                 let itemWidth = (parseInt(pageWidth/columns)-10); 
