@@ -12,7 +12,7 @@
         </nav>
       </div>
     </header>
-    <div class="side__menu" @click="sideAdd">
+    <div :class="[{side_edge : show},'side__menu']" @click="sideAdd">
       <svg viewBox="0 0 32 32" width="100%" height="100%">
         <path
           d="M30 18h-28c-1.1 0-2-0.9-2-2s0.9-2 2-2h28c1.1 0 2 0.9 2 2s-0.9 2-2 2zM30 6.25h-28c-1.1 0-2-0.9-2-2s0.9-2 2-2h28c1.1 0 2 0.9 2 2s-0.9 2-2 2zM2 25.75h28c1.1 0 2 0.9 2 2s-0.9 2-2 2h-28c-1.1 0-2-0.9-2-2s0.9-2 2-2z"
@@ -20,7 +20,7 @@
       </svg>
       <span>&nbsp; menu</span>
     </div>
-    <div class="side__main">
+    <div :class="[{side_show : isShow},'side_main']">
       <div class="side__bg" @click="sideRemove"></div>
       <div class="side__panel">
         <svg
@@ -33,7 +33,8 @@
           @click="sideRemove"
         >
           <path
-            d="M18.362 19.324c-0.902 0.902-2.363 0.902-3.263 0l-5.098-5.827-5.098 5.825c-0.902 0.902-2.363 0.902-3.263 0-0.902-0.902-0.902-2.363 0-3.263l5.304-6.057-5.306-6.061c-0.902-0.902-0.902-2.361 0-3.263s2.361-0.902 3.263 0l5.1 5.829 5.098-5.829c0.902-0.902 2.361-0.902 3.263 0s0.902 2.363 0 3.263l-5.304 6.061 5.304 6.057c0.902 0.902 0.902 2.363 0 3.265z"/>
+            d="M18.362 19.324c-0.902 0.902-2.363 0.902-3.263 0l-5.098-5.827-5.098 5.825c-0.902 0.902-2.363 0.902-3.263 0-0.902-0.902-0.902-2.363 0-3.263l5.304-6.057-5.306-6.061c-0.902-0.902-0.902-2.361 0-3.263s2.361-0.902 3.263 0l5.1 5.829 5.098-5.829c0.902-0.902 2.361-0.902 3.263 0s0.902 2.363 0 3.263l-5.304 6.061 5.304 6.057c0.902 0.902 0.902 2.363 0 3.265z"
+          />
         </svg>
 
         <div class="side__header">
@@ -64,7 +65,9 @@ export default {
         { name: "其他", url: "/content/journalismApi03" }
       ],
       flag: 0,
-      headerClass: ""
+      headerClass: "",
+      isShow: false,
+      show: false
     };
   },
   methods: {
@@ -72,28 +75,19 @@ export default {
       this.flag = index;
     },
     sideAdd() {
-     
-      document
-        .getElementsByClassName("side__main")[0]
-        .classList.add("side__main--show");
+     this.isShow = true;
     },
     sideRemove() {
-    
-      document
-        .getElementsByClassName("side__main")[0]
-        .classList.remove("side__main--show");
+      this.isShow = false;
     }
   },
   mounted() {
-      window.onscroll = function(){
-          if(document.documentElement.scrollTop > (window.screen.height/4)){
-                document.getElementsByClassName('side__menu')[0].classList.add('side__menu--edge');
-          }
-          else{
-              document.getElementsByClassName('side__menu')[0].classList.remove('side__menu--edge');
-          }
-      }
-  },
+    window.onscroll = function() {
+      
+      this.show = document.documentElement.scrollTop > window.screen.height / 4 ? true : false;
+      console.log(this.show);
+    };
+  }
 };
 </script>
 
@@ -140,6 +134,9 @@ nav {
   }
 }
 
+
+
+//侧边导航
 .side__menu {
   opacity: 0;
   position: fixed;
@@ -166,7 +163,9 @@ nav {
     opacity: 0.6;
   }
 }
-.side__menu--edge {
+
+
+.side_edge {
   left: -3px;
   font-size: 0;
   background-color: #333;
@@ -179,7 +178,7 @@ svg {
   width: 14px;
   height: 14px;
 }
-.side__main {
+.side_main {
   display: none;
   opacity: 0;
   position: fixed;
@@ -190,11 +189,11 @@ svg {
   z-index: 3;
   transition: all 0.1s ease;
 }
-.side__main--show {
+.side_show {
   display: block;
   opacity: 1;
 }
-.side__main--show .side__bg {
+.side_show .side__bg {
   background-color: rgba(0, 0, 0, 0.3);
 }
 .side__bg {
