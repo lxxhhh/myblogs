@@ -12,7 +12,7 @@
         </nav>
       </div>
     </header>
-    <div :class="[{side_edge : show},'side__menu']" @click="sideAdd">
+    <div :class="[{side_edge : menuShow},'side__menu']" @click="sideAdd">
       <svg viewBox="0 0 32 32" width="100%" height="100%">
         <path
           d="M30 18h-28c-1.1 0-2-0.9-2-2s0.9-2 2-2h28c1.1 0 2 0.9 2 2s-0.9 2-2 2zM30 6.25h-28c-1.1 0-2-0.9-2-2s0.9-2 2-2h28c1.1 0 2 0.9 2 2s-0.9 2-2 2zM2 25.75h28c1.1 0 2 0.9 2 2s-0.9 2-2 2h-28c-1.1 0-2-0.9-2-2s0.9-2 2-2z"
@@ -67,7 +67,7 @@ export default {
       flag: 0,
       headerClass: "",
       isShow: false,
-      show: false
+      menuShow: false
     };
   },
   methods: {
@@ -82,10 +82,11 @@ export default {
     }
   },
   mounted() {
+    let _that = this;
     window.onscroll = function() {
       
-      this.show = document.documentElement.scrollTop > window.screen.height / 4 ? true : false;
-      console.log(this.show);
+      _that.menuShow = document.documentElement.scrollTop > window.screen.height / 3 ? true : false;
+     
     };
   }
 };
@@ -194,9 +195,6 @@ svg {
   opacity: 1;
 }
 .side_show .side__bg {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-.side__bg {
   position: fixed;
   width: 100%;
   height: 100vh;
@@ -204,6 +202,7 @@ svg {
   left: 0;
   z-index: 3;
   transition: background-color 1s ease;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 .side__panel {
   width: 280px;

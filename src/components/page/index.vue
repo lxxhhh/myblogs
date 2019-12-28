@@ -8,7 +8,7 @@
           </el-carousel-item>
         </el-carousel>
       </template>
-      <a class="up" @click="upcont"></a>
+      <a class="up" href="#content"></a>
       <canvas id="c"></canvas>
     </div>
     <div class="main-cont" id="content">
@@ -105,17 +105,11 @@ export default {
   components: {
     leftNav
   },
-  methods: {
-    upcont() {
-      //页面上滑的距离等于下拉箭头到浏览器的距离+自身高度和bottom
-      document.documentElement.scrollTop =
-        document.getElementsByClassName("up")[0].offsetTop + 50;
-    }
-  },
   created() {
     axios
-      .get("https://www.apiopen.top/journalismApi")
+      .get("/nc/article/headline/T1348649580692/0-40.html")
       .then(response => {
+        console.log(response);
         this.infoUrl = response.data.data.toutiao;
         // console.log(this.infoUrl);
       })
@@ -127,12 +121,7 @@ export default {
   mounted() {
     //向上的泡泡
     upBubbel();
-    //设置element轮播图高度自适应
-    //  this.height = document.body.clientWidth * (480/1920) +'px';
-    //  let that = this;
-    //  window.onresize = function(){
-    //     that.height = document.body.clientWidth * (480/1920) +'px';
-    //  }
+   
   }
 };
 </script>
