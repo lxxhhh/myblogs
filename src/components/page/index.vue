@@ -42,8 +42,8 @@
               </li>
 
               <li v-for="news in infoUrl">
-                <a :href="news.link" class="cont-pic fl">
-                  <img :src="news.picInfo[0]" alt />
+                <a :href="news.url" class="cont-pic fl">
+                  <img :src="news.imgsrc" alt />
                 </a>
                 <a :href="news.link" class="cont-info">
                   <h4 class="cont-tit">{{news.title}}</h4>
@@ -52,16 +52,16 @@
                 <div class="autor">
                   <span class="lm">
                     <a
-                      :href="news.link"
-                      :title="news.category"
+                      :href="news.url_3w"
+                      :title="news.source"
                       target="_blank"
                       class="classname"
-                    >{{news.category}}</a>
+                    >{{news.source}}</a>
                   </span>
                   <span class="dtime">{{news.ptime}}</span>
-                  <span class="viewnum">浏览（{{news.tcount}}）</span>
+                  <span class="viewnum">浏览（{{news.priority}}）</span>
                   <span class="readmore fr">
-                    <a :href="news.link">阅读原文</a>
+                    <a :href="news.url">阅读原文</a>
                   </span>
                 </div>
               </li>
@@ -110,12 +110,12 @@ export default {
       .get("/nc/article/headline/T1348649580692/0-40.html")
       .then(response => {
         console.log(response);
-        this.infoUrl = response.data.data.toutiao;
-        // console.log(this.infoUrl);
+        this.infoUrl = response.data.T1348649580692;
+        console.log(this.infoUrl);
       })
       .catch(error => {
         console.log(error);
-        alert("网络错误，不能访问");
+        alert("请求失败");
       });
   },
   mounted() {

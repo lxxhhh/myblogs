@@ -59,7 +59,7 @@ export default {
     return {
       menu: [
         { name: "首页", url: "/" },
-        { name: "学习笔记", url: "/list/journalismApi" },
+        { name: "学习笔记", url: "/list/T1348649580692" },
         { name: "资源共享", url: "/list/journalismApi01" },
         { name: "生活随记", url: "/list/journalismApi02" },
         { name: "其他", url: "/content/journalismApi03" }
